@@ -126,7 +126,7 @@ func shouldSkipBucketVG(enableBucketAllocation bool, visitorID string, campaign 
 
 // selectNewVariation selects a variation according the visitor ID or decision group, the variation group and decision options
 func selectNewVariation(visitorID string, decisionGroup string, vg *VariationGroup, options DecisionOptions) (*Variation, error) {
-	chosenVariation, err := getRandomAllocation(visitorID, decisionGroup, vg, options.IsCumulativeAlloc)
+	chosenVariationOrig, err := getRandomAllocation(visitorID, decisionGroup, vg, options.IsCumulativeAlloc)
 	if err != nil {
 		if err == VisitorNotTrackedError {
 			logger.Logf(InfoLevel, err.Error())
@@ -135,6 +135,27 @@ func selectNewVariation(visitorID string, decisionGroup string, vg *VariationGro
 		}
 		return nil, err
 	}
+
+	modificationsCopy := &decision_response.Modifications{
+		Type:  chosenVariationOrig.Modifications.Type,
+		Value: &structpb.Struct{},
+	}
+
+	if chosenVariationOrig.Modifications.Value != nil {
+		modificationsCopy.Value.Fields = make(map[string]*structpb.Value)
+		for k, v := range chosenVariationOrig.Modifications.Value.Fields {
+			modificationsCopy.Value.Fields[k] = v
+		}
+	}
+
+	chosenVariation := &Variation{
+		ID:            chosenVariationOrig.ID,
+		Name:          chosenVariationOrig.Name,
+		Reference:     chosenVariationOrig.Reference,
+		Modifications: modificationsCopy,
+		Allocation:    chosenVariationOrig.Allocation,
+	}
+
 	return chosenVariation, err
 }
 
