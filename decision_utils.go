@@ -270,7 +270,9 @@ func buildCampaignResponse(vg *VariationGroup, variation *Variation, exposeAllKe
 				_, okCast := val.GetKind().(*structpb.Value_NullValue)
 				if okCast {
 					// Remove nil value keys if shouldFillKeys is false
-					delete(variation.Modifications.Value.Fields, key)
+					if len(variation.Modifications.Value.Fields) > 0 {
+						delete(variation.Modifications.Value.Fields, key)
+					}
 				}
 			}
 		}
