@@ -2,6 +2,7 @@ package decision
 
 import (
 	"errors"
+	"sync"
 
 	"github.com/flagship-io/flagship-common/internal/utils"
 	"github.com/flagship-io/flagship-common/targeting"
@@ -266,15 +267,21 @@ func buildCampaignResponse(vg *VariationGroup, variation *Variation, exposeAllKe
 		}
 	} else {
 		if variation.Modifications != nil && variation.Modifications.Value != nil {
+			var keysToDelete []string
 			for key, val := range variation.Modifications.Value.Fields {
 				_, okCast := val.GetKind().(*structpb.Value_NullValue)
 				if okCast {
-					// Remove nil value keys if shouldFillKeys is false
-					if len(variation.Modifications.Value.Fields) > 0 {
-						delete(variation.Modifications.Value.Fields, key)
-					}
+					// Collect keys to delete
+					keysToDelete = append(keysToDelete, key)
 				}
 			}
+			// Remove nil value keys if shouldFillKeys is false
+			var mu sync.Mutex
+			mu.Lock()
+			for _, key := range keysToDelete {
+				delete(variation.Modifications.Value.Fields, key)
+			}
+			mu.Unlock()
 		}
 	}
 
