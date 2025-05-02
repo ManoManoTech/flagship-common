@@ -4,8 +4,8 @@ import (
 	"time"
 
 	"github.com/flagship-io/flagship-common/proto"
+	troubleshootingProto "github.com/flagship-io/flagship-common/proto"
 	"github.com/flagship-io/flagship-common/targeting"
-	troubleshootingProto "github.com/flagship-io/flagship-proto/troubleshooting"
 )
 
 // VariationInfo stores the variation information for decision making
