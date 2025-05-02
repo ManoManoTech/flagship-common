@@ -6,8 +6,8 @@ import (
 	"sync"
 	"testing"
 
+	"github.com/flagship-io/flagship-common/proto"
 	"github.com/flagship-io/flagship-common/targeting"
-	"github.com/flagship-io/flagship-proto/decision_response"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/protobuf/types/known/structpb"
 )
@@ -26,15 +26,15 @@ var campaigns = []*Campaign{
 					{
 						ID:         "vgav1",
 						Allocation: 50,
-						Modifications: &decision_response.Modifications{
-							Type:  decision_response.ModificationsType_FLAG,
+						Modifications: &proto.Modifications{
+							Type:  proto.ModificationsType_FLAG,
 							Value: structpb.NewStringValue("toto1").GetStructValue(),
 						},
 					}, {
 						ID:         "vgav2",
 						Allocation: 50,
-						Modifications: &decision_response.Modifications{
-							Type:  decision_response.ModificationsType_FLAG,
+						Modifications: &proto.Modifications{
+							Type:  proto.ModificationsType_FLAG,
 							Value: structpb.NewStringValue("toto2").GetStructValue(),
 						},
 					},
@@ -53,8 +53,8 @@ var campaigns = []*Campaign{
 					{
 						ID:         "vgbv1",
 						Allocation: 100,
-						Modifications: &decision_response.Modifications{
-							Type:  decision_response.ModificationsType_FLAG,
+						Modifications: &proto.Modifications{
+							Type:  proto.ModificationsType_FLAG,
 							Value: structpb.NewStringValue("tata").GetStructValue(),
 						},
 					},

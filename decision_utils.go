@@ -5,8 +5,8 @@ import (
 	"sync"
 
 	"github.com/flagship-io/flagship-common/internal/utils"
+	"github.com/flagship-io/flagship-common/proto"
 	"github.com/flagship-io/flagship-common/targeting"
-	"github.com/flagship-io/flagship-proto/decision_response"
 	"google.golang.org/protobuf/types/known/structpb"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 )
@@ -136,7 +136,7 @@ func selectNewVariation(visitorID string, decisionGroup string, vg *VariationGro
 		return nil, err
 	}
 
-	modificationsCopy := &decision_response.Modifications{
+	modificationsCopy := &proto.Modifications{
 		Type:  chosenVariationOrig.Modifications.Type,
 		Value: &structpb.Struct{},
 	}
@@ -255,8 +255,8 @@ func chooseVariation(
 }
 
 // buildCampaignResponse creates a decision campaign response, filling out empty flag keys for each variation if needed
-func buildCampaignResponse(vg *VariationGroup, variation *Variation, exposeAllKeys bool) *decision_response.Campaign {
-	campaignResponse := decision_response.Campaign{
+func buildCampaignResponse(vg *VariationGroup, variation *Variation, exposeAllKeys bool) *proto.Campaign {
+	campaignResponse := proto.Campaign{
 		Id:                 wrapperspb.String(vg.Campaign.ID),
 		Name:               wrapperspb.String(vg.Campaign.Name),
 		VariationGroupId:   wrapperspb.String(vg.ID),
@@ -269,7 +269,7 @@ func buildCampaignResponse(vg *VariationGroup, variation *Variation, exposeAllKe
 	if exposeAllKeys {
 		logger.Logf(DebugLevel, "filling non existant keys in variation with null value")
 		if variation.Modifications == nil {
-			variation.Modifications = &decision_response.Modifications{}
+			variation.Modifications = &proto.Modifications{}
 		}
 		if variation.Modifications.Value == nil {
 			variation.Modifications.Value = &structpb.Struct{}
@@ -306,7 +306,8 @@ func buildCampaignResponse(vg *VariationGroup, variation *Variation, exposeAllKe
 		}
 	}
 
-	protoModif := &decision_response.Variation{
+	protoModif := &proto.Variation{
+		Allocation:    variation.Allocation,
 		Id:            wrapperspb.String(variation.ID),
 		Name:          wrapperspb.String(variation.Name),
 		Modifications: variation.Modifications,
