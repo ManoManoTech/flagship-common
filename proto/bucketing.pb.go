@@ -4,7 +4,6 @@ import (
 	reflect "reflect"
 	sync "sync"
 
-	decision_response "github.com/flagship-io/flagship-proto/decision_response"
 	targeting "github.com/flagship-io/flagship-proto/targeting"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -61,11 +60,11 @@ type Bucketing_BucketingResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GeneratedAt          string                             `protobuf:"bytes,1,opt,name=generated_at,json=generatedAt,proto3" json:"generated_at,omitempty"`
-	VisitorConsolidation bool                               `protobuf:"varint,2,opt,name=visitor_consolidation,json=visitorConsolidation,proto3" json:"visitor_consolidation,omitempty"`
-	Panic                bool                               `protobuf:"varint,3,opt,name=panic,proto3" json:"panic,omitempty"`
-	Campaigns            []*Bucketing_BucketingCampaign     `protobuf:"bytes,4,rep,name=campaigns,proto3" json:"campaigns,omitempty"`
-	AccountSettings      *decision_response.AccountSettings `protobuf:"bytes,5,opt,name=accountSettings,proto3" json:"accountSettings,omitempty"`
+	GeneratedAt          string                         `protobuf:"bytes,1,opt,name=generated_at,json=generatedAt,proto3" json:"generated_at,omitempty"`
+	VisitorConsolidation bool                           `protobuf:"varint,2,opt,name=visitor_consolidation,json=visitorConsolidation,proto3" json:"visitor_consolidation,omitempty"`
+	Panic                bool                           `protobuf:"varint,3,opt,name=panic,proto3" json:"panic,omitempty"`
+	Campaigns            []*Bucketing_BucketingCampaign `protobuf:"bytes,4,rep,name=campaigns,proto3" json:"campaigns,omitempty"`
+	AccountSettings      *AccountSettings               `protobuf:"bytes,5,opt,name=accountSettings,proto3" json:"accountSettings,omitempty"`
 }
 
 func (x *Bucketing_BucketingResponse) Reset() {
@@ -128,7 +127,7 @@ func (x *Bucketing_BucketingResponse) GetCampaigns() []*Bucketing_BucketingCampa
 	return nil
 }
 
-func (x *Bucketing_BucketingResponse) GetAccountSettings() *decision_response.AccountSettings {
+func (x *Bucketing_BucketingResponse) GetAccountSettings() *AccountSettings {
 	if x != nil {
 		return x.AccountSettings
 	}
@@ -237,10 +236,10 @@ type Bucketing_BucketingVariationGroups struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id         string                             `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name       string                             `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Targeting  *targeting.Targeting               `protobuf:"bytes,3,opt,name=targeting,proto3" json:"targeting,omitempty"`
-	Variations []*decision_response.FullVariation `protobuf:"bytes,4,rep,name=variations,proto3" json:"variations,omitempty"`
+	Id         string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name       string               `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Targeting  *targeting.Targeting `protobuf:"bytes,3,opt,name=targeting,proto3" json:"targeting,omitempty"`
+	Variations []*FullVariation     `protobuf:"bytes,4,rep,name=variations,proto3" json:"variations,omitempty"`
 }
 
 func (x *Bucketing_BucketingVariationGroups) Reset() {
@@ -296,7 +295,7 @@ func (x *Bucketing_BucketingVariationGroups) GetTargeting() *targeting.Targeting
 	return nil
 }
 
-func (x *Bucketing_BucketingVariationGroups) GetVariations() []*decision_response.FullVariation {
+func (x *Bucketing_BucketingVariationGroups) GetVariations() []*FullVariation {
 	if x != nil {
 		return x.Variations
 	}
@@ -505,10 +504,10 @@ var file_bucketing_bucketing_proto_goTypes = []interface{}{
 	(*Bucketing_BucketingVariationGroups)(nil),      // 3: flagship.protobuf.Bucketing.BucketingVariationGroups
 	(*Bucketing_BucketingUpdateRequest)(nil),        // 4: flagship.protobuf.Bucketing.BucketingUpdateRequest
 	(*Bucketing_BucketingCampaign_BucketRange)(nil), // 5: flagship.protobuf.Bucketing.BucketingCampaign.BucketRange
-	(*decision_response.AccountSettings)(nil),       // 6: flagship.protobuf.AccountSettings
+	(*AccountSettings)(nil),                         // 6: flagship.protobuf.AccountSettings
 	(*wrapperspb.StringValue)(nil),                  // 7: google.protobuf.StringValue
 	(*targeting.Targeting)(nil),                     // 8: flagship.protobuf.Targeting
-	(*decision_response.FullVariation)(nil),         // 9: flagship.protobuf.FullVariation
+	(*FullVariation)(nil),                           // 9: flagship.protobuf.FullVariation
 }
 var file_bucketing_bucketing_proto_depIdxs = []int32{
 	2, // 0: flagship.protobuf.Bucketing.BucketingResponse.campaigns:type_name -> flagship.protobuf.Bucketing.BucketingCampaign
