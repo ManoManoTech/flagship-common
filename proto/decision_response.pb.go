@@ -4,7 +4,6 @@ import (
 	reflect "reflect"
 	sync "sync"
 
-	troubleshooting "github.com/flagship-io/flagship-proto/troubleshooting"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -651,7 +650,7 @@ type AccountSettings struct {
 	// # Required
 	//
 	// Troubleshooting information configured in the account settings
-	Troubleshooting *troubleshooting.Troubleshooting `protobuf:"bytes,3,opt,name=troubleshooting,proto3" json:"troubleshooting,omitempty"`
+	Troubleshooting *Troubleshooting `protobuf:"bytes,3,opt,name=troubleshooting,proto3" json:"troubleshooting,omitempty"`
 }
 
 func (x *AccountSettings) Reset() {
@@ -700,7 +699,7 @@ func (x *AccountSettings) GetEnabled1V1T() bool {
 	return false
 }
 
-func (x *AccountSettings) GetTroubleshooting() *troubleshooting.Troubleshooting {
+func (x *AccountSettings) GetTroubleshooting() *Troubleshooting {
 	if x != nil {
 		return x.Troubleshooting
 	}
@@ -1278,26 +1277,26 @@ func file_decision_response_decision_response_proto_rawDescGZIP() []byte {
 var file_decision_response_decision_response_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_decision_response_decision_response_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_decision_response_decision_response_proto_goTypes = []interface{}{
-	(ModificationsType)(0),                  // 0: flagship.protobuf.ModificationsType
-	(*CampaignIdVariationId)(nil),           // 1: flagship.protobuf.CampaignIdVariationId
-	(*Modifications)(nil),                   // 2: flagship.protobuf.Modifications
-	(*TuringEngineOptions)(nil),             // 3: flagship.protobuf.TuringEngineOptions
-	(*Variation)(nil),                       // 4: flagship.protobuf.Variation
-	(*FullVariation)(nil),                   // 5: flagship.protobuf.FullVariation
-	(*Campaign)(nil),                        // 6: flagship.protobuf.Campaign
-	(*AccountSettings)(nil),                 // 7: flagship.protobuf.AccountSettings
-	(*DecisionResponse)(nil),                // 8: flagship.protobuf.DecisionResponse
-	(*DecisionResponsePanic)(nil),           // 9: flagship.protobuf.DecisionResponsePanic
-	(*DecisionResponseFull)(nil),            // 10: flagship.protobuf.DecisionResponseFull
-	(*DecisionResponseSimple)(nil),          // 11: flagship.protobuf.DecisionResponseSimple
-	nil,                                     // 12: flagship.protobuf.TuringEngineOptions.ContextKeysEntry
-	nil,                                     // 13: flagship.protobuf.DecisionResponse.ExtrasEntry
-	nil,                                     // 14: flagship.protobuf.DecisionResponseFull.ExtrasEntry
-	nil,                                     // 15: flagship.protobuf.DecisionResponseSimple.ExtrasEntry
-	(*structpb.Struct)(nil),                 // 16: google.protobuf.Struct
-	(*wrapperspb.StringValue)(nil),          // 17: google.protobuf.StringValue
-	(*troubleshooting.Troubleshooting)(nil), // 18: flagship.protobuf.Troubleshooting
-	(*anypb.Any)(nil),                       // 19: google.protobuf.Any
+	(ModificationsType)(0),         // 0: flagship.protobuf.ModificationsType
+	(*CampaignIdVariationId)(nil),  // 1: flagship.protobuf.CampaignIdVariationId
+	(*Modifications)(nil),          // 2: flagship.protobuf.Modifications
+	(*TuringEngineOptions)(nil),    // 3: flagship.protobuf.TuringEngineOptions
+	(*Variation)(nil),              // 4: flagship.protobuf.Variation
+	(*FullVariation)(nil),          // 5: flagship.protobuf.FullVariation
+	(*Campaign)(nil),               // 6: flagship.protobuf.Campaign
+	(*AccountSettings)(nil),        // 7: flagship.protobuf.AccountSettings
+	(*DecisionResponse)(nil),       // 8: flagship.protobuf.DecisionResponse
+	(*DecisionResponsePanic)(nil),  // 9: flagship.protobuf.DecisionResponsePanic
+	(*DecisionResponseFull)(nil),   // 10: flagship.protobuf.DecisionResponseFull
+	(*DecisionResponseSimple)(nil), // 11: flagship.protobuf.DecisionResponseSimple
+	nil,                            // 12: flagship.protobuf.TuringEngineOptions.ContextKeysEntry
+	nil,                            // 13: flagship.protobuf.DecisionResponse.ExtrasEntry
+	nil,                            // 14: flagship.protobuf.DecisionResponseFull.ExtrasEntry
+	nil,                            // 15: flagship.protobuf.DecisionResponseSimple.ExtrasEntry
+	(*structpb.Struct)(nil),        // 16: google.protobuf.Struct
+	(*wrapperspb.StringValue)(nil), // 17: google.protobuf.StringValue
+	(*Troubleshooting)(nil),        // 18: flagship.protobuf.Troubleshooting
+	(*anypb.Any)(nil),              // 19: google.protobuf.Any
 }
 var file_decision_response_decision_response_proto_depIdxs = []int32{
 	0,  // 0: flagship.protobuf.Modifications.type:type_name -> flagship.protobuf.ModificationsType

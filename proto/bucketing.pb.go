@@ -4,7 +4,6 @@ import (
 	reflect "reflect"
 	sync "sync"
 
-	targeting "github.com/flagship-io/flagship-proto/targeting"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
@@ -236,10 +235,10 @@ type Bucketing_BucketingVariationGroups struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id         string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name       string               `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Targeting  *targeting.Targeting `protobuf:"bytes,3,opt,name=targeting,proto3" json:"targeting,omitempty"`
-	Variations []*FullVariation     `protobuf:"bytes,4,rep,name=variations,proto3" json:"variations,omitempty"`
+	Id         string           `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name       string           `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Targeting  *Targeting       `protobuf:"bytes,3,opt,name=targeting,proto3" json:"targeting,omitempty"`
+	Variations []*FullVariation `protobuf:"bytes,4,rep,name=variations,proto3" json:"variations,omitempty"`
 }
 
 func (x *Bucketing_BucketingVariationGroups) Reset() {
@@ -288,7 +287,7 @@ func (x *Bucketing_BucketingVariationGroups) GetName() string {
 	return ""
 }
 
-func (x *Bucketing_BucketingVariationGroups) GetTargeting() *targeting.Targeting {
+func (x *Bucketing_BucketingVariationGroups) GetTargeting() *Targeting {
 	if x != nil {
 		return x.Targeting
 	}
@@ -506,7 +505,7 @@ var file_bucketing_bucketing_proto_goTypes = []interface{}{
 	(*Bucketing_BucketingCampaign_BucketRange)(nil), // 5: flagship.protobuf.Bucketing.BucketingCampaign.BucketRange
 	(*AccountSettings)(nil),                         // 6: flagship.protobuf.AccountSettings
 	(*wrapperspb.StringValue)(nil),                  // 7: google.protobuf.StringValue
-	(*targeting.Targeting)(nil),                     // 8: flagship.protobuf.Targeting
+	(*Targeting)(nil),                               // 8: flagship.protobuf.Targeting
 	(*FullVariation)(nil),                           // 9: flagship.protobuf.FullVariation
 }
 var file_bucketing_bucketing_proto_depIdxs = []int32{
