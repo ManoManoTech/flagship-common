@@ -3,7 +3,7 @@ package decision
 import (
 	"testing"
 
-	"github.com/flagship-io/flagship-proto/targeting"
+	"github.com/flagship-io/flagship-common/proto"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 )
@@ -12,10 +12,10 @@ func TestHasIntegrationProviderTargeting(t *testing.T) {
 	c := &Campaign{
 		VariationGroups: []*VariationGroup{
 			{
-				Targetings: &targeting.Targeting{
-					TargetingGroups: []*targeting.Targeting_TargetingGroup{
+				Targetings: &proto.Targeting{
+					TargetingGroups: []*proto.Targeting_TargetingGroup{
 						{
-							Targetings: []*targeting.Targeting_InnerTargeting{
+							Targetings: []*proto.Targeting_InnerTargeting{
 								{
 									Provider: wrapperspb.String("mixpanel"),
 								},
@@ -32,17 +32,17 @@ func TestHasIntegrationProviderTargeting(t *testing.T) {
 	c = &Campaign{
 		VariationGroups: []*VariationGroup{
 			{
-				Targetings: &targeting.Targeting{
-					TargetingGroups: []*targeting.Targeting_TargetingGroup{
+				Targetings: &proto.Targeting{
+					TargetingGroups: []*proto.Targeting_TargetingGroup{
 						{
-							Targetings: []*targeting.Targeting_InnerTargeting{
+							Targetings: []*proto.Targeting_InnerTargeting{
 								{
 									Provider: wrapperspb.String(""),
 								},
 							},
 						},
 						{
-							Targetings: []*targeting.Targeting_InnerTargeting{
+							Targetings: []*proto.Targeting_InnerTargeting{
 								{},
 							},
 						},
