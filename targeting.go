@@ -5,13 +5,13 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/flagship-io/flagship-common/proto"
 	"github.com/flagship-io/flagship-common/targeting"
-	protoTargeting "github.com/flagship-io/flagship-proto/targeting"
 	"google.golang.org/protobuf/types/known/structpb"
 )
 
 // targetingMatch returns true if a visitor ID and context match the variationGroup targeting
-func targetingMatch(targetings *protoTargeting.Targeting, visitorID string, context *targeting.Context) (bool, error) {
+func targetingMatch(targetings *proto.Targeting, visitorID string, context *targeting.Context) (bool, error) {
 	globalMatch := false
 	for _, targetingGroup := range targetings.GetTargetingGroups() {
 		matchGroup := len(targetingGroup.GetTargetings()) > 0
@@ -43,19 +43,19 @@ func targetingMatch(targetings *protoTargeting.Targeting, visitorID string, cont
 	return globalMatch, nil
 }
 
-func isANDListOperator(operator protoTargeting.Targeting_TargetingOperator) bool {
-	return operator == protoTargeting.Targeting_NOT_CONTAINS || operator == protoTargeting.Targeting_NOT_EQUALS
+func isANDListOperator(operator proto.Targeting_TargetingOperator) bool {
+	return operator == proto.Targeting_NOT_CONTAINS || operator == proto.Targeting_NOT_EQUALS
 }
 
-func isORListOperator(operator protoTargeting.Targeting_TargetingOperator) bool {
-	return operator == protoTargeting.Targeting_CONTAINS || operator == protoTargeting.Targeting_EQUALS
+func isORListOperator(operator proto.Targeting_TargetingOperator) bool {
+	return operator == proto.Targeting_CONTAINS || operator == proto.Targeting_EQUALS
 }
 
-func isEmptyContextOperator(operator protoTargeting.Targeting_TargetingOperator) bool {
-	return operator == protoTargeting.Targeting_EXISTS || operator == protoTargeting.Targeting_NOT_EXISTS
+func isEmptyContextOperator(operator proto.Targeting_TargetingOperator) bool {
+	return operator == proto.Targeting_EXISTS || operator == proto.Targeting_NOT_EXISTS
 }
 
-func targetingMatchOperator(operator protoTargeting.Targeting_TargetingOperator, targetingValue *structpb.Value, contextValue *structpb.Value) (bool, error) {
+func targetingMatchOperator(operator proto.Targeting_TargetingOperator, targetingValue *structpb.Value, contextValue *structpb.Value) (bool, error) {
 	match := false
 	var err error
 
@@ -120,27 +120,27 @@ func targetingMatchOperator(operator protoTargeting.Targeting_TargetingOperator,
 	return match, err
 }
 
-func targetingMatchOperatorString(operator protoTargeting.Targeting_TargetingOperator, targetingValue string, contextValue string) (bool, error) {
+func targetingMatchOperatorString(operator proto.Targeting_TargetingOperator, targetingValue string, contextValue string) (bool, error) {
 	switch operator {
-	case protoTargeting.Targeting_LOWER_THAN:
+	case proto.Targeting_LOWER_THAN:
 		return strings.ToLower(contextValue) < strings.ToLower(targetingValue), nil
-	case protoTargeting.Targeting_GREATER_THAN:
+	case proto.Targeting_GREATER_THAN:
 		return strings.ToLower(contextValue) > strings.ToLower(targetingValue), nil
-	case protoTargeting.Targeting_LOWER_THAN_OR_EQUALS:
+	case proto.Targeting_LOWER_THAN_OR_EQUALS:
 		return strings.ToLower(contextValue) <= strings.ToLower(targetingValue), nil
-	case protoTargeting.Targeting_GREATER_THAN_OR_EQUALS:
+	case proto.Targeting_GREATER_THAN_OR_EQUALS:
 		return strings.ToLower(contextValue) >= strings.ToLower(targetingValue), nil
-	case protoTargeting.Targeting_EQUALS:
+	case proto.Targeting_EQUALS:
 		return strings.EqualFold(contextValue, targetingValue), nil
-	case protoTargeting.Targeting_NOT_EQUALS:
+	case proto.Targeting_NOT_EQUALS:
 		return !strings.EqualFold(contextValue, targetingValue), nil
-	case protoTargeting.Targeting_STARTS_WITH:
+	case proto.Targeting_STARTS_WITH:
 		return strings.HasPrefix(strings.ToLower(contextValue), strings.ToLower(targetingValue)), nil
-	case protoTargeting.Targeting_ENDS_WITH:
+	case proto.Targeting_ENDS_WITH:
 		return strings.HasSuffix(strings.ToLower(contextValue), strings.ToLower(targetingValue)), nil
-	case protoTargeting.Targeting_CONTAINS:
+	case proto.Targeting_CONTAINS:
 		return strings.Contains(strings.ToLower(contextValue), strings.ToLower(targetingValue)), nil
-	case protoTargeting.Targeting_NOT_CONTAINS:
+	case proto.Targeting_NOT_CONTAINS:
 		return !strings.Contains(strings.ToLower(contextValue), strings.ToLower(targetingValue)), nil
 	// case "regex":
 	// 	match, err := regexp.MatchString(targetingValue, contextValue)
@@ -150,41 +150,41 @@ func targetingMatchOperatorString(operator protoTargeting.Targeting_TargetingOpe
 	}
 }
 
-func targetingMatchOperatorNumber(operator protoTargeting.Targeting_TargetingOperator, targetingValue float64, contextValue float64) (bool, error) {
+func targetingMatchOperatorNumber(operator proto.Targeting_TargetingOperator, targetingValue float64, contextValue float64) (bool, error) {
 	switch operator {
-	case protoTargeting.Targeting_LOWER_THAN:
+	case proto.Targeting_LOWER_THAN:
 		return contextValue < targetingValue, nil
-	case protoTargeting.Targeting_GREATER_THAN:
+	case proto.Targeting_GREATER_THAN:
 		return contextValue > targetingValue, nil
-	case protoTargeting.Targeting_LOWER_THAN_OR_EQUALS:
+	case proto.Targeting_LOWER_THAN_OR_EQUALS:
 		return contextValue <= targetingValue, nil
-	case protoTargeting.Targeting_GREATER_THAN_OR_EQUALS:
+	case proto.Targeting_GREATER_THAN_OR_EQUALS:
 		return contextValue >= targetingValue, nil
-	case protoTargeting.Targeting_EQUALS:
+	case proto.Targeting_EQUALS:
 		return contextValue == targetingValue, nil
-	case protoTargeting.Targeting_NOT_EQUALS:
+	case proto.Targeting_NOT_EQUALS:
 		return contextValue != targetingValue, nil
 	default:
 		return false, errors.New("operator not handled")
 	}
 }
 
-func targetingMatchOperatorBool(operator protoTargeting.Targeting_TargetingOperator, targetingValue bool, contextValue bool) (bool, error) {
+func targetingMatchOperatorBool(operator proto.Targeting_TargetingOperator, targetingValue bool, contextValue bool) (bool, error) {
 	switch operator {
-	case protoTargeting.Targeting_EQUALS:
+	case proto.Targeting_EQUALS:
 		return contextValue == targetingValue, nil
-	case protoTargeting.Targeting_NOT_EQUALS:
+	case proto.Targeting_NOT_EQUALS:
 		return contextValue != targetingValue, nil
 	default:
 		return false, errors.New("operator not handled")
 	}
 }
 
-func targetingMatchOperatorEmptyContext(operator protoTargeting.Targeting_TargetingOperator, targetingValue bool, contextValue *structpb.Value) (bool, error) {
+func targetingMatchOperatorEmptyContext(operator proto.Targeting_TargetingOperator, targetingValue bool, contextValue *structpb.Value) (bool, error) {
 	switch operator {
-	case protoTargeting.Targeting_EXISTS:
+	case proto.Targeting_EXISTS:
 		return contextValue != nil && targetingValue || contextValue == nil && !targetingValue, nil
-	case protoTargeting.Targeting_NOT_EXISTS:
+	case proto.Targeting_NOT_EXISTS:
 		return contextValue == nil && targetingValue || contextValue != nil && !targetingValue, nil
 	default:
 		return false, errors.New("operator not handled")

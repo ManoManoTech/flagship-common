@@ -6,34 +6,33 @@ import (
 
 	"github.com/flagship-io/flagship-common/proto"
 	"github.com/flagship-io/flagship-common/targeting"
-	protoTargeting "github.com/flagship-io/flagship-proto/targeting"
 	"github.com/golang/protobuf/ptypes/wrappers"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/protobuf/types/known/structpb"
 )
 
-func createNumberTargeting() *protoTargeting.Targeting {
-	targetingGroups := []*protoTargeting.Targeting_TargetingGroup{}
-	targetingGroups = append(targetingGroups, &protoTargeting.Targeting_TargetingGroup{
-		Targetings: []*protoTargeting.Targeting_InnerTargeting{{
-			Operator: protoTargeting.Targeting_EQUALS,
+func createNumberTargeting() *proto.Targeting {
+	targetingGroups := []*proto.Targeting_TargetingGroup{}
+	targetingGroups = append(targetingGroups, &proto.Targeting_TargetingGroup{
+		Targetings: []*proto.Targeting_InnerTargeting{{
+			Operator: proto.Targeting_EQUALS,
 			Key:      &wrappers.StringValue{Value: "age"},
 			Value:    structpb.NewNumberValue(30),
 		}},
 	})
-	return &protoTargeting.Targeting{TargetingGroups: targetingGroups}
+	return &proto.Targeting{TargetingGroups: targetingGroups}
 }
 
-func createBoolTargeting() *protoTargeting.Targeting {
-	targetingGroups := []*protoTargeting.Targeting_TargetingGroup{}
-	targetingGroups = append(targetingGroups, &protoTargeting.Targeting_TargetingGroup{
-		Targetings: []*protoTargeting.Targeting_InnerTargeting{{
-			Operator: protoTargeting.Targeting_EQUALS,
+func createBoolTargeting() *proto.Targeting {
+	targetingGroups := []*proto.Targeting_TargetingGroup{}
+	targetingGroups = append(targetingGroups, &proto.Targeting_TargetingGroup{
+		Targetings: []*proto.Targeting_InnerTargeting{{
+			Operator: proto.Targeting_EQUALS,
 			Key:      &wrappers.StringValue{Value: "isVIP"},
 			Value:    structpb.NewBoolValue(true),
 		}},
 	})
-	return &protoTargeting.Targeting{TargetingGroups: targetingGroups}
+	return &proto.Targeting{TargetingGroups: targetingGroups}
 }
 
 func TestDeduplicateCampaigns(t *testing.T) {

@@ -5,7 +5,6 @@ import (
 
 	"github.com/flagship-io/flagship-common/proto"
 	"github.com/flagship-io/flagship-common/targeting"
-	targetingProto "github.com/flagship-io/flagship-proto/targeting"
 	troubleshootingProto "github.com/flagship-io/flagship-proto/troubleshooting"
 )
 
@@ -24,7 +23,7 @@ type VariationGroup struct {
 	Name       string
 	Campaign   *Campaign
 	CreatedAt  time.Time
-	Targetings *targetingProto.Targeting
+	Targetings *proto.Targeting
 	Variations []*Variation
 }
 
