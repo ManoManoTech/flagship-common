@@ -3,8 +3,8 @@ package decision
 import (
 	"time"
 
+	"github.com/flagship-io/flagship-common/proto"
 	"github.com/flagship-io/flagship-common/targeting"
-	"github.com/flagship-io/flagship-proto/decision_response"
 	targetingProto "github.com/flagship-io/flagship-proto/targeting"
 	troubleshootingProto "github.com/flagship-io/flagship-proto/troubleshooting"
 )
@@ -14,7 +14,7 @@ type Variation struct {
 	ID            string
 	Name          string
 	Allocation    float32
-	Modifications *decision_response.Modifications
+	Modifications *proto.Modifications
 	Reference     bool
 }
 

@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/flagship-io/flagship-common/proto"
 	"github.com/flagship-io/flagship-common/targeting"
-	"github.com/flagship-io/flagship-proto/decision_response"
 	protoTargeting "github.com/flagship-io/flagship-proto/targeting"
 	"github.com/golang/protobuf/ptypes/wrappers"
 	"github.com/stretchr/testify/assert"
@@ -177,14 +177,14 @@ func TestBuildCampaignResponse(t *testing.T) {
 
 	var1 := &Variation{
 		ID: "vaid1",
-		Modifications: &decision_response.Modifications{
+		Modifications: &proto.Modifications{
 			Value: value1,
 		},
 	}
 
 	var2 := &Variation{
 		ID: "vaid2",
-		Modifications: &decision_response.Modifications{
+		Modifications: &proto.Modifications{
 			Value: value2,
 		},
 	}

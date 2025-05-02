@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"sync"
 
-	"github.com/flagship-io/flagship-proto/decision_response"
+	"github.com/flagship-io/flagship-common/proto"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
@@ -14,7 +14,7 @@ func GetDecision(
 	environmentInfos Environment,
 	options DecisionOptions,
 	handlers DecisionHandlers,
-) (*decision_response.DecisionResponse, error) {
+) (*proto.DecisionResponse, error) {
 
 	envID := environmentInfos.ID
 	visitorID := visitorInfos.ID
@@ -29,9 +29,9 @@ func GetDecision(
 	}
 
 	// Initialize campaign response to be returned
-	decisionResponse := &decision_response.DecisionResponse{}
+	decisionResponse := &proto.DecisionResponse{}
 	decisionResponse.VisitorId = wrapperspb.String(visitorID)
-	decisionResponse.Campaigns = []*decision_response.Campaign{}
+	decisionResponse.Campaigns = []*proto.Campaign{}
 
 	// Initialize future variation groups variation assignments
 	newVGAssignments := make(map[string]*VisitorCache)
